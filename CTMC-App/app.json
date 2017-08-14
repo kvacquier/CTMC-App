@@ -1,5 +1,16 @@
 {
   "expo": {
-    "sdkVersion": "19.0.0"
+    "sdkVersion": "19.0.0",
+    "android": {
+      "package": "CTMC-App"
+    },
+    "name": "CTMC-App",
+    "slug": "ctmc-app",
+    "version": "0.1.0",
+    "isDetached": true,
+    "detach": {
+      "scheme": "expdf29704a0f3f4cc2b72849560effec8d",
+      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v1.18.4-sdk19.0.0-3fb414c9-8696-4966-a0ac-9ca424242424.tar.gz"
+    }
   }
 }
