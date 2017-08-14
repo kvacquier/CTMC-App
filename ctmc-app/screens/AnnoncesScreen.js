@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ListView,
 } from 'react-native';
 
 var REQUEST_URL = 'http://mauguio-tir.fr/wp-json/wp/v2/posts?categories=8'
@@ -18,11 +19,14 @@ export default class AnnoncesScreen extends React.Component {
   static navigationOptions = {
     title: 'Annonces',
   };
-  
+
   constructor(props) {
-    super(props);
-    this.state = {
-      announces: null,
+  super(props);
+  this.state = {
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }),
+      loaded: false,
     };
   }
 
@@ -35,26 +39,33 @@ export default class AnnoncesScreen extends React.Component {
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
-          announces: responseData,
+          dataSource: this.state.dataSource.cloneWithRows(responseData),
+          loaded: true,
         });
       })
       .done();
   }
 
   render() {
-    if (!this.state.announces) {
+    if (!this.state.loaded) {
       return this.renderLoadingView();
     }
 
-    var announce = this.state.announces[0];
-    return this.renderAnnounces(announce);
+    return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderAnnounces}
+        style={styles.listView}
+      />
+    );
+
   }
 
   renderLoadingView() {
     return (
       <View style={styles.container}>
         <Text>
-          Chargement Annonces...
+          Chargement des Annonces...
         </Text>
       </View>
     );
@@ -97,5 +108,8 @@ var styles = StyleSheet.create({
     width: 53,
     height: 81,
   },
+  listView: {
+    paddingTop: 20,
+    backgroundColor: '#F5FCFF',
+  },
 });
-
