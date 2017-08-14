@@ -1,20 +1,27 @@
 {
   "expo": {
-    "sdkVersion": "19.0.0",
-    "android": {
-      "package": "CTMC-App"
-    },
-    "name": "CTMC-App",
+    "name": "ctmc-app",
+    "description": "No description",
     "slug": "ctmc-app",
-    "version": "0.1.0",
-    "isDetached": true,
-    "detach": {
-      "scheme": "expdf29704a0f3f4cc2b72849560effec8d",
-      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v1.18.4-sdk19.0.0-3fb414c9-8696-4966-a0ac-9ca424242424.tar.gz",
-      "iosExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/ios-v1.18.2-sdk19.0.0-3fabbbb7-61b3-4a1e-9932-12d0aa6af276.tar.gz"
+    "privacy": "public",
+    "sdkVersion": "19.0.0",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "icon": "./assets/icons/app-icon.png",
+    "notification": {
+      "icon": "./assets/icons/notification-icon.png",
+      "color": "#000000"
+    },
+    "loading": {
+      "icon": "./assets/icons/loading-icon.png",
+      "hideExponentText": false
+    },
+    "packagerOpts": {
+      "assetExts": ["ttf"]
     },
     "ios": {
-      "bundleIdentifier": "CTMC-App"
+      "supportsTablet": true
     }
   }
 }
