@@ -1,105 +1,101 @@
+/*
+** https://facebook.github.io/react-native/releases/0.27/docs/sample-application-movies.html
+*/
+
 import React, { Component } from 'react'
 import { ExpoLinksView } from '@expo/samples';
 import {
-  StyleSheet,
+  AppRegistry,
   Image,
-  View,
-  ScrollView,
-  TouchableHighlight,
-  FlatList,
+  StyleSheet,
   Text,
+  View,
 } from 'react-native';
+
+var REQUEST_URL = 'http://mauguio-tir.fr/wp-json/wp/v2/posts?categories=8'
 
 export default class AnnoncesScreen extends React.Component {
   static navigationOptions = {
     title: 'Annonces',
   };
-
   
-  _keyExtractor = (item, index) => index;
-  
-  _renderItem = ({item, index}) => (
-    <ListItem
-      item={item}
-      index={index}
-      onPressItem={this._onPressItem}
-    />
-  );
+  constructor(props) {
+    super(props);
+    this.state = {
+      announces: null,
+    };
+  }
 
-  _onPressItem = (index) => {
-    console.log("Pressed row: "+index);
-  };
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData() {
+    fetch(REQUEST_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          announces: responseData,
+        });
+      })
+      .done();
+  }
 
   render() {
+    if (!this.state.announces) {
+      return this.renderLoadingView();
+    }
+
+    var announce = this.state.announces[0];
+    return this.renderAnnounces(announce);
+  }
+
+  renderLoadingView() {
     return (
-      <FlatList
-        data={this.props.listings}
-        keyExtractor={this._keyExtractor}
-        renderItem={this._renderItem}
-      />
+      <View style={styles.container}>
+        <Text>
+          Chargement Annonces...
+        </Text>
+      </View>
     );
   }
-}
 
-
-class ListItem extends React.PureComponent {
-  _onPress = () => {
-    this.props.onPressItem(this.props.index);
-  }
-
-  render() {
-    const item = this.props.item;
-    const price = item.price_formatted.split(' ')[0];
+  renderAnnounces(announce) {
     return (
-      <TouchableHighlight
-        onPress={this._onPress}
-        underlayColor='#dddddd'>
-        <View>
-          <View style={styles.rowContainer}>
-            <Image style={styles.thumb} source={{ uri: item.img_url }} />
-            <View style={styles.textContainer}>
-              <Text style={styles.price}>{price}</Text>
-              <Text style={styles.title}
-                numberOfLines={1}>{item.title}</Text>
-            </View>
-          </View>
-          <View style={styles.separator}/>
+      <View style={styles.container}>
+
+        <View style={styles.rightContainer}>
+          <Text style={styles.title}>{announce.title.rendered}</Text>
+          <Text style={styles.year}>{announce.id}</Text>
         </View>
-      </TouchableHighlight>
+      </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  thumb: {
-    width: 80,
-    height: 80,
-    marginRight: 10
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
   },
-  textContainer: {
-    flex: 1
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#dddddd'
-  },
-  price: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    color: '#48BBEC'
+  rightContainer: {
+    flex: 1,
   },
   title: {
     fontSize: 20,
-    color: '#656565'
+    marginBottom: 8,
+    textAlign: 'center',
   },
-  rowContainer: {
-    flexDirection: 'row',
-    padding: 10
+  year: {
+    textAlign: 'center',
   },
-  container: {
-    flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
+  thumbnail: {
+    width: 53,
+    height: 81,
   },
 });
 
