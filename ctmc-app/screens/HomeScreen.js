@@ -42,7 +42,7 @@ export default class HomeScreen extends React.Component {
             <View
               style={[
                 styles.codeHighlightContainer,
-                styles.homeScreenFilename,
+                styles.HomeScreenFilename,
               ]}>
               <MonoText style={styles.codeHighlightText}>
                 screens/HomeScreen.js
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 50,
   },
-  homeScreenFilename: {
+  HomeScreenFilename: {
     marginVertical: 7,
   },
   codeHighlightText: {
