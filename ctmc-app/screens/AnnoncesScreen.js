@@ -3,7 +3,6 @@
 */
 
 import React, { Component } from 'react'
-import { ExpoLinksView } from '@expo/samples';
 import {
   AppRegistry,
   Image,
@@ -13,7 +12,7 @@ import {
   ListView,
 } from 'react-native';
 
-var REQUEST_URL = 'http://mauguio-tir.fr/wp-json/wp/v2/posts?categories=8'
+var REQUEST_URL = 'http://app.mauguio-tir.fr/api/?announces'
 
 export default class AnnoncesScreen extends React.Component {
   static navigationOptions = {
@@ -73,13 +72,14 @@ export default class AnnoncesScreen extends React.Component {
 
   renderAnnounces(announce) {
     return (
-      <View style={styles.container}>
 
-        <View style={styles.rightContainer}>
-          <Text style={styles.title}>{announce.title.rendered}</Text>
-          <Text style={styles.year}>{announce.id}</Text>
+        <View style={styles.container}>
+          <Image source={{uri: announce.img_thumbnail}} style={styles.thumbnail} />
+          <View style={styles.rightContainer}>
+            <Text style={styles.title}>{announce.title}</Text>
+          </View>
         </View>
-      </View>
+
     );
   }
 }
@@ -99,13 +99,10 @@ var styles = StyleSheet.create({
   title: {
     fontSize: 20,
     marginBottom: 8,
-    textAlign: 'center',
-  },
-  year: {
-    textAlign: 'center',
+    textAlign: 'left',
   },
   thumbnail: {
-    width: 53,
+    width: 71,
     height: 81,
   },
   listView: {
