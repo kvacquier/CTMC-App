@@ -18,8 +18,8 @@ import HTMLView from 'react-native-htmlview';
 export default class AnnounceView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      announce: this.props.navigation.state.params.announce, 
+    this.state = {
+      announce: this.props.navigation.state.params.announce,
     };
   }
 
@@ -27,15 +27,16 @@ export default class AnnounceView extends React.Component {
     title: navigation.state.params.announce.title,
   });
 
-  render() {    
+  render() {
     return (
       <ScrollView>
         <View style={styles.container}>
-        <Image source={{uri: this.state.announce.img_thumbnail}} style={styles.thumbnail} />
+        <Image source={{uri: this.state.announce.img_medium}} style={styles.thumbnail} />
         <HTMLView
           value={this.state.announce.content}
           stylesheet={styles}
           addLineBreaks={false}
+          style={{margin:15}}
         />
       </View>
     </ScrollView>
@@ -60,12 +61,16 @@ var styles = StyleSheet.create({
     textAlign: 'left',
   },
   thumbnail: {
-    marginTop: 8,
-    width: 150,
-    height: 150,
+    marginTop: 0,
+    width: 500,
+    height: 200,
   },
-  a: {
-    fontWeight: '300',
-    color: '#FF3366', // make links coloured pink
+  pre: {
+    fontSize: 28,
+    textAlign: 'center',
+    borderColor: '#dddddd',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 4,
   },
 });
