@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { WebBrowser } from 'expo';
 import HTMLView from 'react-native-htmlview';
 
 import { MonoText } from '../components/StyledText';
@@ -65,13 +64,11 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text>
-          Chargement des Petites Annonces...
+          Chargement de l'application...
         </Text>
       </View>
     );
   }
-
-  
 }
 
 const styles = StyleSheet.create({
