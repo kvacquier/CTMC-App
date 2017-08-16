@@ -4,11 +4,15 @@ import { StackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
+import AnnounceView from '../screens/AnnounceView';
 
 const RootStackNavigator = StackNavigator(
   {
     Main: {
       screen: MainTabNavigator,
+    },
+    AnnounceView: {
+      screen: AnnounceView,
     },
   },
   {
