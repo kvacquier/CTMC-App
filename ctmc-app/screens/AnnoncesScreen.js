@@ -28,7 +28,7 @@ class ListItem extends React.PureComponent {
         underlayColor='#dddddd'>
         <View>
           <View style={styles.container} onPressItem={this._onPressItem}>
-            <Image source={{uri: item.img_thumbnail}} style={styles.thumbnail} />
+            <Image source={{uri: item.img.img_thumbnail}} style={styles.thumbnail} />
             <View style={styles.rightContainer}>
               <Text style={styles.title}>{item.title}</Text>
             </View>
