@@ -11,6 +11,7 @@ import {
   View,
   FlatList,
   TouchableHighlight,
+  Button,
 } from 'react-native';
 
 var REQUEST_URL = 'http://app.mauguio-tir.fr/api/?announces'
@@ -59,6 +60,7 @@ export default class AnnoncesScreen extends React.Component {
 
   static navigationOptions = {
     title: 'Annonces',
+    headerRight: <Button title="+" onPress={() => this.add()}/>,
   };
 
   constructor(props) {
@@ -68,6 +70,10 @@ export default class AnnoncesScreen extends React.Component {
     };
   }
 
+  _add() {
+    
+  }
+  
   componentDidMount() {
     this.fetchData();
   }
