@@ -5,18 +5,12 @@
 import React, { Component } from 'react'
 import {
   AppRegistry,
-  ScrollView,
   Image,
   StyleSheet,
-  Text,
   View,
-  TouchableOpacity,
+  Dimensions,
 } from 'react-native'
-import { Button } from 'react-native-elements'
-import { Ionicons, MaterialIcons, Foundation } from '@expo/vector-icons';
-import ParallaxView from 'react-native-parallax-view';
-import Communications from 'react-native-communications';
-import HTMLView from 'react-native-htmlview';
+import ImageZoom from 'react-native-image-pan-zoom';
 
 export default class ImageView extends React.Component {
   constructor(props) {
@@ -32,7 +26,17 @@ export default class ImageView extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image source={{uri: this.state.image.img_large}}/>
+        <ImageZoom
+            cropWidth={Dimensions.get('window').width}
+            cropHeight={Dimensions.get('window').height}
+            imageWidth={Dimensions.get('window').width}
+            imageHeight={Dimensions.get('window').height}>
+
+            <Image style={{width:Dimensions.get('window').width, height: Dimensions.get('window').height, resizeMode: "contain"}}
+               source={{uri: this.state.image.img_large}}
+               />
+
+        </ImageZoom>
       </View>
     );
   }
