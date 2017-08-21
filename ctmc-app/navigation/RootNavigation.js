@@ -5,6 +5,7 @@ import { StackNavigator } from 'react-navigation';
 import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 import AnnounceView from '../screens/AnnounceView';
+import AddAnnounce from '../screens/AddAnnounce';
 import ImageView from '../screens/ImageView';
 
 const RootStackNavigator = StackNavigator(
@@ -14,6 +15,9 @@ const RootStackNavigator = StackNavigator(
     },
     AnnounceView: {
       screen: AnnounceView,
+    },
+    AddAnnounce: {
+      screen: AddAnnounce,
     },
     ImageView: {
       screen: ImageView,

@@ -11,8 +11,11 @@ import {
   View,
   FlatList,
   TouchableHighlight,
-  Button,
+  TouchableOpacity,
 } from 'react-native';
+import { Icon } from 'react-native-elements';
+import { Ionicons } from '@expo/vector-icons';
+
 
 var REQUEST_URL = 'http://app.mauguio-tir.fr/api/?announces'
 
@@ -58,20 +61,23 @@ export default class AnnoncesScreen extends React.Component {
     navigate("AnnounceView", {announce: this.state.announces[index]})    
   };
 
-  static navigationOptions = {
+  static navigationOptions = ({navigation, screenProps}) => ({
     title: 'Annonces',
-    headerRight: <Button title="+" onPress={() => this.add()}/>,
-  };
+    headerRight: (<Icon
+        onPress={() => navigation.navigate('AddAnnounce')}
+        name='new-message'
+        type='entypo'
+        color='#2f95dc'
+        size={20}
+        iconStyle={styles.iconStyle}
+        />),
+  });
 
   constructor(props) {
   super(props);
   this.state = {
       loaded: false,
     };
-  }
-
-  _add() {
-    
   }
   
   componentDidMount() {
@@ -115,7 +121,6 @@ export default class AnnoncesScreen extends React.Component {
   }
 }
 
-
 var styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -146,5 +151,8 @@ var styles = StyleSheet.create({
   listView: {
     paddingTop: 20,
     backgroundColor: '#F5FCFF',
+  },
+  iconStyle: {
+    margin: 8,
   },
 });
