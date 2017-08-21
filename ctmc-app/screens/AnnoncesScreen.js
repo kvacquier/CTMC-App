@@ -47,7 +47,7 @@ class ListItem extends React.PureComponent {
 export default class AnnoncesScreen extends React.Component {
 
   _keyExtractor = (item, index) => index;
-  
+
   _renderItem = ({item, index}) => (
     <ListItem
       item={item}
@@ -58,19 +58,22 @@ export default class AnnoncesScreen extends React.Component {
 
   _onPressItem = (index) => {
     const {navigate} = this.props.navigation;
-    navigate("AnnounceView", {announce: this.state.announces[index]})    
+    navigate("AnnounceView", {announce: this.state.announces[index]})
   };
 
   static navigationOptions = ({navigation, screenProps}) => ({
     title: 'Annonces',
-    headerRight: (<Icon
+    headerRight: (
+      <Icon
         onPress={() => navigation.navigate('AddAnnounce')}
         name='new-message'
         type='entypo'
         color='#2f95dc'
         size={20}
-        iconStyle={styles.iconStyle}
-        />),
+        iconStyle={styles.iconStyle}/>
+
+
+      ),
   });
 
   constructor(props) {
@@ -79,7 +82,7 @@ export default class AnnoncesScreen extends React.Component {
       loaded: false,
     };
   }
-  
+
   componentDidMount() {
     this.fetchData();
   }

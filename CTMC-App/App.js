@@ -31,10 +31,9 @@ export default class App extends React.Component {
   async _loadAssetsAsync() {
     try {
       await Promise.all([
-        Asset.loadAsync([
+        /*Asset.loadAsync([
           require('./assets/images/robot-dev.png'),
-          require('./assets/images/robot-prod.png'),
-        ]),
+        ]),*/
         Font.loadAsync([
           // This is the font that we are using for our tab bar
           Ionicons.font,
