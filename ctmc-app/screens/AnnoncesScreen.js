@@ -71,8 +71,6 @@ export default class AnnoncesScreen extends React.Component {
         color='#2f95dc'
         size={20}
         iconStyle={styles.iconStyle}/>
-
-
       ),
   });
 

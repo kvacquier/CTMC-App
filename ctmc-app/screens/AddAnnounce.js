@@ -12,9 +12,11 @@ import {
   Dimensions,
   ScrollView,
   Picker,
+  Alert,
 } from 'react-native'
 import { FormLabel, FormInput, Divider, Button } from 'react-native-elements'
-import { ImagePicker } from 'expo';
+import { ImagePicker } from 'expo'
+import { Icon } from 'react-native-elements';
 
 export default class AddAnnounce extends React.Component {
 
@@ -37,7 +39,50 @@ export default class AddAnnounce extends React.Component {
 
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: 'Poster une Annonce',
+    headerRight: (
+      <Icon
+        onPress={() => {Alert.alert(
+          'Information',
+          'Nous rappelons à nos annonceurs et à nos lecteurs, que les les annonces sont passées sous leur seule responsabilité et qu’ils doivent impérativement se conforter à la législation en vigueur pour tout achat ou vente d’armes et matériels de la catégorie B.',
+          [ {text: 'OK'} ],
+          { cancelable: false } )}}
+        name='info'
+        type='entypo'
+        color='#2f95dc'
+        size={20}
+        iconStyle={styles.iconStyle}/>
+      ),
   });
+
+
+  _sendForm = () => {
+    console.log("Envoie au formulaire")
+    const data = new FormData();
+    console.log(this.state);
+    data.append('input_2', this.state.name);
+    data.append('input_3', this.state.mail);
+    data.append('input_4', this.state.telephone);
+    data.append('input_1', this.state.arme);
+    data.append('input_6', this.state.modele);
+    data.append('input_7', this.state.marque);
+    data.append('input_8', this.state.calibre);
+    data.append('input_9', this.state.categorie);
+    data.append('input_14', this.state.comment);
+    data.append('input_12', this.state.prix);
+    /*data.append('input_13', {
+      uri: this.state.img,
+      type: 'image/jpg', // or photo.type
+      name: 'testPhotoName'
+    });*/
+    fetch("http://mauguio-tir.fr/wp-json/gf/v2/forms/8/submissions", {
+      method: 'POST',
+      body: data
+    }).then(res => {
+      console.log(res)
+    });
+
+  };
+
 
   _pickImageCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -61,21 +106,11 @@ export default class AddAnnounce extends React.Component {
     }
   };
 
+
   render() {
     return (
       <ScrollView>
         <View style={styles.container}>
-          <Text style={styles.h1}>Informations</Text>
-          <Text style={styles.h2}>
-            Nous rappelons à nos annonceurs et à nos lecteurs,
-            que les les annonces sont passées sous leur seule
-            responsabilité et qu’ils doivent impérativement se
-            conforter à la législation en vigueur pour tout achat
-            ou vente d’armes et matériels de la catégorie B.
-          </Text>
-
-          <Text style={styles.h1}>Formulaire</Text>
-
 
           <FormLabel containerStyle={styles.label}>
             Nom & Prénom
@@ -196,7 +231,7 @@ export default class AddAnnounce extends React.Component {
             <View style={styles.buttonRow}>
               <Button
                 icon={{name: 'send'}}
-                onPress={this._pickImageLibrary}
+                onPress={this._sendForm}
                 title="Publier l'annonce"
                 color="#FFFFFF"
                 backgroundColor='#87C050'
@@ -240,10 +275,13 @@ var styles = StyleSheet.create({
   label: {alignSelf: 'stretch'},
   buttonRow: {
     flex: 1,
-    marginTop: 8,
+    marginTop: 15,
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginBottom: 8,
+  },
+  iconStyle: {
+    margin: 8,
   },
   image: {
     resizeMode: "contain",
