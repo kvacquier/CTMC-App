@@ -31,7 +31,7 @@ export default class AddAnnounce extends React.Component {
       modele: '',
       marque: '',
       calibre: '',
-      categorie: 'A',
+      categorie: 'B',
       comment: '',
       prix: ''
     };
@@ -69,20 +69,31 @@ export default class AddAnnounce extends React.Component {
     data.append('input_9', this.state.categorie);
     data.append('input_14', this.state.comment);
     data.append('input_12', this.state.prix);
-    /*data.append('input_13', {
+    data.append('input_13', {
       uri: this.state.img,
       type: 'image/jpg', // or photo.type
-      name: 'testPhotoName'
-    });*/
+      name: this.state.arme + '-' + this.state.name + '-img.jpg'
+    });
     fetch("http://mauguio-tir.fr/wp-json/gf/v2/forms/8/submissions", {
       method: 'POST',
       body: data
     }).then(res => {
+
       console.log(res)
+      Alert.alert(
+        'Formulaire envoyé avec succes',
+        "Merci d'avoir utilisé le formulaire ! Votre annonce sera traité et mise en ligne dans les plus brefs délais...",
+        [ {text: 'OK', onPress: this._onPressOk }, ],
+        { cancelable: false })
+
     });
 
   };
 
+  _onPressOk = () => {
+    const {navigate} = this.props.navigation;
+    navigate("AnnounceScreen")
+  };
 
   _pickImageCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -180,6 +191,7 @@ export default class AddAnnounce extends React.Component {
             Categorie
           </FormLabel>
           <Picker
+            style={{flex:1, alignSelf: 'stretch', margin: 10}}
             selectedValue={this.state.categorie}
             onValueChange={(itemValue, itemIndex) => this.setState({categorie: itemValue})}>
             <Picker.Item label="A" value="A" />
@@ -192,6 +204,8 @@ export default class AddAnnounce extends React.Component {
             Commentaire
           </FormLabel>
           <FormInput
+            multiline = {true}
+            numberOfLines = {6}
             inputStyle={styles.input}
             keyboardType="default"
             onChangeText={(comment) => this.setState({comment})}
@@ -228,15 +242,14 @@ export default class AddAnnounce extends React.Component {
                 source={{uri: this.state.img}}
               />
 
-            <View style={styles.buttonRow}>
               <Button
+                buttonStyle={styles.btnSubmit}
                 icon={{name: 'send'}}
                 onPress={this._sendForm}
                 title="Publier l'annonce"
                 color="#FFFFFF"
                 backgroundColor='#87C050'
               />
-            </View>
 
 
         </View>
@@ -288,5 +301,10 @@ var styles = StyleSheet.create({
     flex: 1,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').width * 9 / 16
+  },
+  btnSubmit: {
+    width: Dimensions.get('window').width - 15,
+    marginTop: 15,
+    marginBottom: 15,
   },
 });
